@@ -26,5 +26,5 @@ public class OrderBill {
 	private Double totalCost;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "orderBill")
-	private List<SweetOrder> listSweetOrder = new ArrayList<>();
+	private List<Orders> listSweetOrder = new ArrayList<>();
 }

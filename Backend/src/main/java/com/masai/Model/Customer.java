@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -16,17 +17,15 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
+@DiscriminatorValue("Customer")
 public class Customer extends User{
 
 //	private Long userId;
 	private String userName;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-	private Set<SweetOrder> sweetOrders = new HashSet<>();
+	private Set<Orders> orders = new HashSet<>();
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId")
-	private List<SweetItem> sweetItems = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
 
