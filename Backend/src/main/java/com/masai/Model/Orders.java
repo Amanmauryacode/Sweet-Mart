@@ -28,17 +28,19 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sweetOrderId")
+
 	private Integer sweetOrderId;
 	@ManyToOne
 	private User user;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Product> items = new ArrayList<>();
+
 	private LocalDate createdDate;
 
 	@ElementCollection
 	@CollectionTable(name = "product_qty_mapping", joinColumns = {
-			@JoinColumn(name = "product_id", referencedColumnName = "sweetOrderId") })
+	@JoinColumn(name = "product_id", referencedColumnName = "sweetOrderId") })
 	@MapKeyColumn(name = "product_name")
 	@Column(name = "qty")
 	private Map<Product, Long> groupProduct;
@@ -51,3 +53,5 @@ public class Orders {
 	@JoinColumn(name = "orderBillId")
 	private OrderBill orderBill;
 }
+
+
