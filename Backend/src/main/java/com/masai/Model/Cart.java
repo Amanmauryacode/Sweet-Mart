@@ -3,6 +3,8 @@ package com.masai.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +33,7 @@ public class Cart {
 	private List<Product> listProduct = new ArrayList<>();
 
 	private Integer productCount;
+	@JsonIgnore
 	@OneToOne
     @PrimaryKeyJoinColumn
 	private Customer customer;

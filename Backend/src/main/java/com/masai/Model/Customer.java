@@ -15,20 +15,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @DiscriminatorValue("Customer")
 public class Customer extends User{
 
-//	private Long userId;
-	private String userName;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
 	private Set<Orders> orders = new HashSet<>();
 	
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
-
 	private Cart cart;
 
 }
