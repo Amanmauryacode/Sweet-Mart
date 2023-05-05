@@ -23,7 +23,7 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cartId")
-	private Integer cartId;
+	private Long cartId;
 	private Double grandTotal,total;
 	
 	@OneToMany(cascade = CascadeType.ALL)
