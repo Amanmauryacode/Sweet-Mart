@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,8 @@ import com.masai.Exceptions.CustomerException;
 import com.masai.Model.Customer;
 import com.masai.Service.CustomerService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class CustomerController {
 
@@ -24,11 +28,18 @@ public class CustomerController {
 	private CustomerService customerService;
 
 	@PostMapping("/customers")
-	public ResponseEntity<Customer> SaveCustomers(@RequestBody Customer customer) throws CustomerException {
+	public ResponseEntity<Customer> SaveCustomers( @Valid @RequestBody Customer customer) throws CustomerException {
 
 		Customer c = customerService.AddCustomer(customer);
 		return new ResponseEntity<>(c, HttpStatus.CREATED);
 
+	}
+	
+	@PutMapping("/customer/{userName}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable String userName ,@RequestBody Customer customer) throws CustomerException{
+		
+		customer= customerService.UpdateCustomer(userName,customer);
+		return new ResponseEntity<>(customer,HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/customers")
@@ -44,5 +55,14 @@ public class CustomerController {
 
 		return new ResponseEntity<>(customer, HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/customers/{userName}")
+	public ResponseEntity< Customer> getCustomerByUserNames(@PathVariable String userName) throws CustomerException{
+	
+		Customer customer= customerService.ShowCustomerByUserNamer(userName);
+		return new ResponseEntity<>(customer,HttpStatus.OK);
+	}
+	
+	
 
 }

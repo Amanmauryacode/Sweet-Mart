@@ -24,9 +24,6 @@ import lombok.Setter;
 @DiscriminatorValue("Customer")
 public class Customer extends User{
 
-//	private Long userId;
-//	private String userName;
-	
 	@JsonProperty(access = Access.READ_ONLY)
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
 	private Set<Orders> orders = new HashSet<>();
