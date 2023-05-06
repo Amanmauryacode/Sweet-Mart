@@ -9,6 +9,7 @@ import lombok.Setter;
 @Entity
 @DiscriminatorValue("Admin")
 public class Admin extends User {
-
+	
+	
 
 }
