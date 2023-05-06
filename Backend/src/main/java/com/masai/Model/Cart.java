@@ -29,7 +29,6 @@ public class Cart {
 	private Double grandTotal,total;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cartId")
 	private List<Product> listProduct = new ArrayList<>();
 
 	private Integer productCount;

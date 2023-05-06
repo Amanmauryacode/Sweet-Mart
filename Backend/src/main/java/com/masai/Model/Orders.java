@@ -6,6 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -27,26 +31,27 @@ import lombok.Setter;
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "sweetOrderId")
-	private Integer sweetOrderId;
-	@ManyToOne
-	private User user;
+	@Column(name = "OrderId")
+	private Integer orderId;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Product> items = new ArrayList<>();
+	@JsonIgnore
 	private LocalDate createdDate;
 
 	@ElementCollection
 	@CollectionTable(name = "product_qty_mapping", joinColumns = {
-			@JoinColumn(name = "product_id", referencedColumnName = "sweetOrderId") })
+			@JoinColumn(name = "product_id", referencedColumnName = "OrderId") })
 	@MapKeyColumn(name = "product_name")
 	@Column(name = "qty")
 	private Map<Product, Long> groupProduct;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private Customer customer;
 
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "orderBillId")
 	private OrderBill orderBill;
