@@ -1,5 +1,8 @@
 package com.masai.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -15,7 +18,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
- 
 @Entity
 @Setter
 @Getter
@@ -29,8 +31,12 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
 	private Long userId;
+	@Column(nullable = false)
 	private String userName;
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String confirmedPassword;
-//	private String type;
+
 }
