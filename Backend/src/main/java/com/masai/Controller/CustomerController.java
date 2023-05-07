@@ -35,10 +35,10 @@ public class CustomerController {
 
 	}
 	
-	@PutMapping("/customer/{userName}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable String userName ,@RequestBody Customer customer) throws CustomerException{
+	@PutMapping("/customer/{userId}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable Long userId ,@RequestBody Customer customer) throws CustomerException{
 		
-		customer= customerService.UpdateCustomer(userName,customer);
+		customer= customerService.UpdateCustomer(userId,customer);
 		return new ResponseEntity<>(customer,HttpStatus.ACCEPTED);
 	}
 
@@ -48,19 +48,25 @@ public class CustomerController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/customers/{userName}")
-	public ResponseEntity<Customer> deleteEntity(@PathVariable String userName) throws CustomerException {
+	@DeleteMapping("/customers/{userId}")
+	public ResponseEntity<Customer> deleteEntity(@PathVariable Long userId) throws CustomerException {
 
-		Customer customer = customerService.DeleteCustomer( userName);
+		Customer customer = customerService.DeleteCustomer( userId);
 
 		return new ResponseEntity<>(customer, HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/customers/{userName}")
-	public ResponseEntity< Customer> getCustomerByUserNames(@PathVariable String userName) throws CustomerException{
+	public ResponseEntity< List<Customer>> getCustomerByUserNames(@PathVariable String userName) throws CustomerException{
 	
-		Customer customer= customerService.ShowCustomerByUserNamer(userName);
+		List<Customer> customer= customerService.ShowCustomerByUserNamer(userName);
 		return new ResponseEntity<>(customer,HttpStatus.OK);
+	}
+	
+	@GetMapping("/customers/id/{userId}")
+	public ResponseEntity<Customer> getCustomerById(@Valid @PathVariable  Long userId) throws CustomerException{
+		Customer customer = customerService.getCustomerById(userId);
+		return new ResponseEntity<>(customer, HttpStatus.ACCEPTED);
 	}
 	
 	

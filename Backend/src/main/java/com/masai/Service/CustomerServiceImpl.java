@@ -23,47 +23,32 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer AddCustomer(Customer customer) throws CustomerException {
-		if (customerRepo.existsByUserName(customer.getUserName())) {
-			
-			throw new CustomerException("Username already exists");
-			
-		} else if (!customer.getPassword().equals(customer.getConfirmedPassword())) {
-			
-			throw new CustomerException("Both Password should be Same ");
-			
+		
+		if(customer.getPassword().equals(customer.getConfirmedPassword())) {
+
+			return customerRepo.save(customer);
 		}
-		return customerRepo.save(customer);
+		throw new CustomerException("Password And Confirmed Password Must same ");
 	}
 
 	@Override
-	public Customer UpdateCustomer(String userName, Customer customerDetails) throws CustomerException {
-		Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepo.findByUserName(userName));
+	public Customer UpdateCustomer(Long userID , Customer customerDetails) throws CustomerException {
+		Optional<Customer> optionalCustomer = customerRepo.findById(userID);
 		Customer customer = optionalCustomer
-				.orElseThrow(() -> new CustomerException("Customer with username " + userName + " not found."));
+				.orElseThrow(() -> new CustomerException("Customer with Id " + userID + " not found."));
 
-		if (customerDetails.getUserName() != null) {
-			customer.setUserName(customerDetails.getUserName());
+		if(customerDetails.getPassword().equals(customerDetails.getConfirmedPassword())) {
+			return customerRepo.save(customer);
 		}
-
-		if (customerDetails.getPassword() != null) {
-			customer.setPassword(customerDetails.getPassword());
-		}
-
-		if (customerDetails.getConfirmedPassword() != null) {
-			customer.setConfirmedPassword(customerDetails.getConfirmedPassword());
-		}
-//		customer.setUserName(customerDetails.getUserName());
-//		customer.setPassword(customerDetails.getPassword());
-//		customer.setConfirmedPassword(customerDetails.getConfirmedPassword());
-		return userRepository.save(customer);
+		throw new CustomerException("Password And Confirmed Password Must same ");
 
 	}
 
 	@Override
-	public Customer DeleteCustomer(String customername) throws CustomerException {
-		Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepo.findByUserName(customername));
+	public Customer DeleteCustomer(Long userID ) throws CustomerException {
+		Optional<Customer> optionalCustomer = customerRepo.findById(userID);
 		Customer customer = optionalCustomer
-				.orElseThrow(() -> new CustomerException("Customer with username " + customername + " does not exist"));
+				.orElseThrow(() -> new CustomerException("Customer with optionalCustomer " + userID + " does not exist"));
 		customerRepo.delete(customer);
 		return customer;
 	}
@@ -77,25 +62,22 @@ public class CustomerServiceImpl implements CustomerService {
 		return customers;
 	}
 
-//	@Override
-//	public Customer updateCustomer(String userName, Customer customerDetails) throws CustomerException {
-//		Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepo.findByUserName(userName));
-//		Customer customer = optionalCustomer
-//				.orElseThrow(() -> new CustomerException("Customer with username " + userName + " does not exist"));
-//		customer.setUserName(customerDetails.getUserName());
-//		customer.setPassword(customerDetails.getPassword());
-//		customer.setConfirmedPassword(customerDetails.getConfirmedPassword());
-//		Customer updatedCustomer = customerRepo.save(customer);
-//		return updatedCustomer;
-//	}
 
 	@Override
-	public Customer ShowCustomerByUserNamer(String customername) throws CustomerException {
-		Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepo.findByUserName(customername));
-		Customer customer = optionalCustomer
-				.orElseThrow(() -> new CustomerException("Customer with username " + customername + " does not exist"));
-
-		return customer;
+	public List<Customer> ShowCustomerByUserNamer(String customername) throws CustomerException {
+		
+		List<Customer> customers = customerRepo.findByUserName(customername);
+		if(customers.isEmpty())throw new CustomerException("No customers found with name "+customername);
+		return customers;
 	}
+
+	@Override
+	public Customer getCustomerById(Long userId) throws CustomerException {
+		Optional<Customer> opt = customerRepo.findById(userId);
+		if(opt.isEmpty())throw new CustomerException("No customers found with Id "+userId);
+		return opt.get();
+	}
+	
+	
 
 }

@@ -9,13 +9,15 @@ public interface CustomerService {
 
 	public Customer AddCustomer(Customer customer)throws CustomerException;
 
-	public Customer UpdateCustomer(String userName ,Customer customer)throws CustomerException;
+	public Customer UpdateCustomer(Long userID ,Customer customer)throws CustomerException;
 
-	public Customer DeleteCustomer(String userName)throws CustomerException;
+	public Customer DeleteCustomer(Long userID )throws CustomerException;
 
 	public List<Customer> ShowAllCustomers()throws CustomerException;
 
-	public Customer ShowCustomerByUserNamer(String customername)throws CustomerException;
+	public List<Customer> ShowCustomerByUserNamer(String customername)throws CustomerException;
+	
+	public Customer getCustomerById(Long userId)throws CustomerException;
 	
 //	public Customer updateCustomer(String userName, Customer customerDetails) throws CustomerException;
 }
