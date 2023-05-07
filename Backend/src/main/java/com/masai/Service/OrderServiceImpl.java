@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepo;
-	
+
 	@Autowired
 	private CustomerRepository customerRepo;
 
@@ -35,8 +35,8 @@ public class OrderServiceImpl implements OrderService {
 		customer.getOrders().add(order);
 		order.setCustomer(customer);
 		order.setCreatedDate(LocalDate.now());
-		
-		//Here we Have to create Order bill And set to order;
+
+		// Here we Have to create Order bill And set to order;
 		return orderRepo.save(order);
 	}
 
@@ -44,33 +44,36 @@ public class OrderServiceImpl implements OrderService {
 	public Orders updateOrder(Long customerId, Orders order) throws CustomerException, OrderException {
 		// TODO Auto-generated method stub
 		Orders o = orderRepo.getOrder(customerId, order.getOrderId());
-		if(o== null)throw new OrderException("NO order Found");
+		if (o == null)
+			throw new OrderException("NO order Found");
 		o.setItems(order.getItems());
 		o.setGroupProduct(order.getGroupProduct());
 		o.setCreatedDate(LocalDate.now());
-		//Here we Have to create Order bill And set to order;
+		// Here we Have to create Order bill And set to order;
 		return orderRepo.save(o);
 	}
 
 	@Override
 	public Orders cancelOrder(Integer orderId) throws OrderException {
 		// TODO Auto-generated method stub
-		
+
 		Optional<Orders> opt = orderRepo.findById(orderId);
-		if(opt.isEmpty())throw new OrderException("No order found with id "+orderId);
-		
+		if (opt.isEmpty())
+			throw new OrderException("No order found with id " + orderId);
+
 		orderRepo.delete(opt.get());
 		return opt.get();
 	}
 
 	@Override
-	public List<Orders> getAllOrder(Long id) throws  OrderException{
-		
-		//Here We need to check for permission (User is Admin or not);
-		
+	public List<Orders> getAllOrder(Long id) throws OrderException {
+
+		// Here We need to check for permission (User is Admin or not);
+
 		List<Orders> list = orderRepo.findAll();
-		
-		if(list.isEmpty())throw new OrderException("No order found in record");
+
+		if (list.isEmpty())
+			throw new OrderException("No order found in record");
 		return list;
 	}
 
