@@ -42,11 +42,6 @@ public class CustomerController {
 		return new ResponseEntity<>(customer,HttpStatus.ACCEPTED);
 	}
 
-	@GetMapping("/customers")
-	public ResponseEntity<List<Customer>> allListOfCustomer() throws CustomerException {
-		List<Customer> list = customerService.ShowAllCustomers();
-		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
 
 	@DeleteMapping("/customers/{userName}")
 	public ResponseEntity<Customer> deleteEntity(@PathVariable String userName) throws CustomerException {
@@ -57,10 +52,18 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/customers/{userName}")
-	public ResponseEntity< Customer> getCustomerByUserNames(@PathVariable String userName) throws CustomerException{
-	
-		Customer customer= customerService.ShowCustomerByUserNamer(userName);
+	public ResponseEntity<Customer> getCustomerByName(@PathVariable String userName) throws CustomerException{
+		
+		Customer customer=customerService.ShowCustomerByUserNamer(userName);
+		
 		return new ResponseEntity<>(customer,HttpStatus.OK);
+	}
+	
+	@GetMapping("/customers")
+	public ResponseEntity<List<Customer>> getAllCustomer() throws CustomerException{
+		List<Customer> customers= customerService.ShowAllCustomers();
+		
+		return new ResponseEntity<>(customers,HttpStatus.OK);
 	}
 	
 	

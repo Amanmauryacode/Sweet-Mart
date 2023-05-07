@@ -52,9 +52,6 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customerDetails.getConfirmedPassword() != null) {
 			customer.setConfirmedPassword(customerDetails.getConfirmedPassword());
 		}
-//		customer.setUserName(customerDetails.getUserName());
-//		customer.setPassword(customerDetails.getPassword());
-//		customer.setConfirmedPassword(customerDetails.getConfirmedPassword());
 		return userRepository.save(customer);
 
 	}
@@ -76,19 +73,6 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return customers;
 	}
-
-//	@Override
-//	public Customer updateCustomer(String userName, Customer customerDetails) throws CustomerException {
-//		Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepo.findByUserName(userName));
-//		Customer customer = optionalCustomer
-//				.orElseThrow(() -> new CustomerException("Customer with username " + userName + " does not exist"));
-//		customer.setUserName(customerDetails.getUserName());
-//		customer.setPassword(customerDetails.getPassword());
-//		customer.setConfirmedPassword(customerDetails.getConfirmedPassword());
-//		Customer updatedCustomer = customerRepo.save(customer);
-//		return updatedCustomer;
-//	}
-
 	@Override
 	public Customer ShowCustomerByUserNamer(String customername) throws CustomerException {
 		Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepo.findByUserName(customername));

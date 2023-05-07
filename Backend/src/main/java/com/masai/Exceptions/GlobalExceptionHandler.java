@@ -47,8 +47,8 @@ public class GlobalExceptionHandler {
 	}
 
 //	Application specific Exception Handler 
-	@ExceptionHandler(SomethingWentWrongException.class)
-	public ResponseEntity<MyErrorDetails> ExceptionHandler(SomethingWentWrongException sm, WebRequest req) {
+	@ExceptionHandler(AdminException.class)
+	public ResponseEntity<MyErrorDetails> ExceptionHandler(AdminException sm, WebRequest req) {
 
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), sm.getMessage(), req.getDescription(false));
 
