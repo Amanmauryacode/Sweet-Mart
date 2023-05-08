@@ -1,6 +1,7 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
 <div align="center">
-<h1> SweetMart App</h1><br>
+<h1> 🍩SweetMart App</h1><br>
   <img src="https://user-images.githubusercontent.com/112757338/236703121-e5b77f8b-10a1-4e23-9b4d-343b23746cf4.png" alt="logo" style="width:80%">
 </div>
 <br>
@@ -10,7 +11,7 @@ SweetMart is a Java-based e-commerce platform that allows sweet shop owners to s
 <hr>
 ## This was a collabrative project made in 5 days. 
 
-## Team members :--
+## 👥 Team members :--
 1. Aman Maurya
 2. Shahid Afridi
 3. Nisha
@@ -37,7 +38,7 @@ SweetMart is a Java-based e-commerce platform that allows sweet shop owners to s
 ## Entity Relationship diagram :---
 ![SweetMart_ER_Diagram](https://user-images.githubusercontent.com/112757338/236708670-6a77cbb1-520e-4191-831e-ceb435c49a8f.png)
 
- ## Features
+ ## 🚀 Features
 
 * User and Admin validation.
 * Admin Features:
@@ -51,7 +52,7 @@ SweetMart is a Java-based e-commerce platform that allows sweet shop owners to s
     
     <br>
         
-## Feedback
+## 🌟Feedback
 Your valuable feedback is greatly appreciated. You can reach out to me via below medium
 
 - [Aman](https://amanmauryacode.github.io/)
@@ -66,7 +67,7 @@ Your valuable feedback is greatly appreciated. You can reach out to me via below
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nisha-gupta-b25662238/)
 
-## Acknowledgements
+## 📝 Acknowledgements
 - [Masai School](https://www.masaischool.com/)
 <hr>
 <h1 align="center">THANK YOU FOR VISITING</h1>
