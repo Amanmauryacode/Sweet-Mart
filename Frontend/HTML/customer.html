@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer functionality</title>
+</head>
+<style>
+    body {
+        background-color: #CFD8DC;
+        margin: 0;
+    }
+
+    .circle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    .circle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: #d28a8a;
+        width: 400px;
+        height: 400px;
+
+        font-family: Arial, sans-serif;
+        box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    #navbar div {
+        display: flex;
+        justify-content: space-between;
+        border: 2px solid rgb(110, 110, 110);
+    }
+
+    #navbar div img {
+        width: 10%;
+        border-radius: 60%;
+    }
+
+    h1 {
+        padding-top: 10px;
+        font-weight: 900;
+        font-size: 40px;
+        color: #37474F;
+    }
+
+    #logout {
+        margin: 40px;
+    }
+
+    button {
+        font-size: 22px;
+        padding: 3px;
+        border: 1pc solid #f20404;
+        border-radius: 10px;
+        background-color: #f20404;
+    }
+
+    .circle ul li {
+        margin: 15px;
+    }
+
+    .circle ul li a {
+
+        text-decoration: none;
+        font-size: 25px;
+        font-weight: 600;
+
+    }
+</style>
+
+<body>
+
+    <nav id="navbar">
+        <div>
+            <img src="https://user-images.githubusercontent.com/112757338/236703121-e5b77f8b-10a1-4e23-9b4d-343b23746cf4.png"
+                alt="">
+            <h1>Customer Features</h1>
+            <a id="logout"><button>LogOut</button></a>
+        </div>
+    </nav>
+    <div class="circle-container">
+        <div class="circle">
+            <ul>
+                <li><a href="../HTML/customerDetails.html">Customer Detials</a></li>
+                <li><a href="">Products</a></li>
+                <li><a href="">Cart</a></li>
+                <li><a href="">My Orders</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    let logoutbtn = document.getElementById("logout");
+    let user = JSON.parse(localStorage.getItem("user"))
+    logoutbtn.addEventListener("click", () => {
+        logout(user.uuid);
+    })
+
+    function logout(key) {
+
+        var raw = "";
+
+        var requestOptions = {
+            method: 'POST',
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:8088/logout?key=" + key, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                if (result === "Logged Out !") {
+                    alert(result);
+                    localStorage.removeItem("user");
+                    window.location.href = "../HTML/index.html"
+                } else {
+                    let ms = result.split(",");
+                    alert(ms[1].split(":")[1])
+                }
+            })
+            .catch(error => console.log('error', error));
+
+    }
+
+
+
+
+</script>
+
+</html>

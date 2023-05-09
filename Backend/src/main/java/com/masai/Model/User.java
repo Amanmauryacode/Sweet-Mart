@@ -31,7 +31,7 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
 	private Long userId;
-	@Column(nullable = false)
+	@Column(nullable = false,unique = true)
 	private String userName;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)

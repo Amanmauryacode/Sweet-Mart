@@ -1,0 +1,103 @@
+nav {
+    width: 80%;
+    margin: auto;
+}
+
+nav>img {
+    width: 14%;
+    padding-top: 12px;
+}
+
+.form>div{
+    display: flex;
+    font-size: 14px;
+    width: 80%;
+    margin: auto;
+}
+
+.form>div>h2{
+    border-bottom: 5px solid #FDD835;
+    margin-left: 35px;
+}
+
+.form>div>a{
+    text-decoration: none;
+    color: rgb(175, 173, 173);
+}
+
+.form>div>a:hover{
+    color: black;
+}
+
+#error{
+    margin-left: 50px;
+}
+
+.form{
+    width: 28.5%;
+    position: relative;
+    top: 88px;
+    left: 62%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+form>input{
+    font-size: 17px;
+    padding: 10px 10px 10px 10px;
+    margin: 9px 50px;
+    width: 68%;
+}
+form>div{
+    margin-left: 47px;
+}
+form>div>span:last-child{
+    margin-left: 42px;
+    margin-top: -15px;
+    font-size: 14px;
+}
+form>div>span:first-child{
+    font-size: 14px;
+    margin-top: -15px;
+}
+form>div>span{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    margin-top: -15px;
+}
+
+#code{
+    width: 53%;
+    margin-right: 14px;
+}
+
+#pin{
+    position: relative;
+    padding: 5px;
+    font-size: 29px;
+    border: 1px solid black;
+    left: -4.5%;
+    top: 4px;
+}
+
+#submit{
+    text-align: center;
+    width: 75%;
+    background-color: #FDD835;
+    color: white;
+    border:1px solid #FDD835;
+}
+
+.form>p{
+    text-align: center;
+    margin-top: 20px;
+}
+.form>img{
+    width: 16%;
+    display: block;
+    margin: auto;
+    padding-bottom: 21px;
+}
+
+
+
