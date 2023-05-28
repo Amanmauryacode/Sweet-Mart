@@ -1,3 +1,4 @@
+
 let logo = document.getElementById("logo");
 
 logo.addEventListener("click", () => {
@@ -10,6 +11,7 @@ let password = document.getElementById("password");
 let error = document.getElementById("error");
 let loginstatus = document.getElementById("login");
 let adminStatus = document.getElementById("Admin");
+
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -56,7 +58,7 @@ form.addEventListener("submit", (e) => {
 
                 if(result.messags == undefined){
                     alert("Logged In");
-                    localStorage.setItem("user",result);
+                    localStorage.setItem("user",JSON.stringify(result));
                     if(result.role === "Admin"){
                         window.location.href = "../HTML/Admin.html"
                     }else{
@@ -83,3 +85,4 @@ form.addEventListener("submit", (e) => {
 
 
 })
+

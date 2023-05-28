@@ -36,7 +36,5 @@ public abstract class User {
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private String confirmedPassword;
-
+	
 }

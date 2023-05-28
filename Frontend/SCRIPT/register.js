@@ -26,8 +26,7 @@ form.addEventListener("submit", (e) => {
 
             let data = {
                 userName: email.value,
-                password: password.value,
-                confirmedPassword: password_2.value
+                password: password.value
             }
             registerUser(data);
         } else {

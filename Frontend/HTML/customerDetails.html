@@ -9,7 +9,7 @@
 </head>
 <style>
     body {
-        background-image: url("./pexels-igor-ovsyannykov-205961.jpg");
+        /* background-image: url("./pexels-igor-ovsyannykov-205961.jpg"); */
         background-size: cover;
         /* background-position: center; */
         margin: 0;
@@ -44,6 +44,56 @@
         border-radius: 10px;
         background-color: #f20404;
     }
+
+    #customer{
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        display: flex;
+        width: 60%;
+        margin: auto;
+        margin-top: 7%;
+        padding-left: 18%;
+    }
+
+    #profile{
+        width: 30%;
+        margin-right: 20px;
+    }
+    #profile>img{
+        width: 100%;
+    }
+    #details>form{
+        margin-top: 50px;
+    }
+
+    input:focus{
+        outline: none;
+    }
+    #details>form>div{
+        margin: 30px;
+        font-size: medium;
+        font-weight: 700;
+        
+    }
+
+    #edit{
+        background: green;
+        color: white;
+        border: 1px solid green;
+    }
+    #update{
+        background: #1976D2;
+        color: white;
+        border: 1px solid #1976D2;
+
+    }
+    #edit, #update{
+        width: 30%;
+        padding: 8px;
+        margin-left: 30px;
+        font-size: 17px;
+        font-weight: 600;
+        
+    }
 </style>
 
 <body>
@@ -54,15 +104,110 @@
             <h1>Customer Features</h1>
             <a id="logout"><button>LogOut</button></a>
         </div>
+
     </nav>
+    <div id="customer">
+        <div id="profile">
+            <img src="./profile.png" alt="">
+        </div>
+        <div id="details">
+            <form action="">
+
+            </form>
+        </div>
+    </div>
 </body>
 <script>
     let logoutbtn = document.getElementById("logout");
+    let details = document.getElementById("details");
     let user = JSON.parse(localStorage.getItem("user"))
+    customerDetails(user.uuid);
     logoutbtn.addEventListener("click", () => {
         logout(user.uuid);
     })
 
+    function customerDetails(key) {
+
+        fetch("http://localhost:8088/customers/id/" + key)
+            .then(response => response.json())
+            .then(result => showData(result))
+            .catch(error => console.log('error', error));
+    }
+
+    function showData(data) {
+        console.log(data);
+        details.innerHTML = "";
+        let html = `
+        <form >
+            <div>
+                <label for="">User Name : </label>
+                <input type="text" id="userName" value="${data.userName}" disabled>
+            </div>
+            <div>
+                <label for="">Password : &nbsp</label>
+                <input type="text" id = "password" value="********"   disabled>
+            </div>
+            <div>
+                <label for="">Total Order : </label>
+                <input type="Number" value="${data.orders.length}" disabled>
+            </div>
+            <input type="button" id="edit" value="Edit">
+            <input type="button" id="update" value="Update" hidden >
+            
+        </form>`
+        details.innerHTML = html;
+
+        let edit = document.getElementById("edit");
+        let update = document.getElementById("update");
+
+        edit.addEventListener("click", () => {
+            const billingItems = document.querySelectorAll(`input[type="text"]`);
+
+            billingItems.forEach((item) => {
+                item.disabled = !item.disabled;
+            });
+
+            edit.hidden = !edit.hidden;
+            update.hidden = !update.hidden;
+        })
+
+        update.addEventListener("click", () => {
+            const billingItems = document.querySelectorAll(`input[type="text"]`);
+            obj = {};
+            billingItems.forEach((item) => {
+                item.disabled = !item.disabled;
+                let el = item.getAttribute("id");
+                if (item.disabled)
+                    if (el != null && item.value != "********")
+                        obj[el] = item.value;
+            });
+            obj["userId"] = user.userId;
+            updateDetails(obj,user.uuid);
+            edit.hidden = !edit.hidden;
+            update.hidden = !update.hidden;
+        })
+
+
+    }
+
+    function updateDetails(obj, key) {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify(obj);
+
+        var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:8088/customers/"+key, requestOptions)
+            .then(response => response.json())
+            .then(result => showData(result))
+            .catch(error => console.log('error', error));
+    }
     function logout(key) {
 
         var raw = "";

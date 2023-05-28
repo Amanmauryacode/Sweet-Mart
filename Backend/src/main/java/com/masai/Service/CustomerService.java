@@ -17,7 +17,7 @@ public interface CustomerService {
 
 	public Customer ShowCustomerByUserNamer(String customername)throws CustomerException;
 	
-	public Customer getCustomerById(Long userId)throws CustomerException;
+	public Customer getCustomerById(String key)throws CustomerException;
 	
 //	public Customer updateCustomer(String userName, Customer customerDetails) throws CustomerException;
 }

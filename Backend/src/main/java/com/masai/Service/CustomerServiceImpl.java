@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.Exceptions.CustomerException;
+import com.masai.Model.Cart;
 import com.masai.Model.CurrentUserSession;
 import com.masai.Model.Customer;
 import com.masai.repository.CustomerRepository;
@@ -31,26 +32,32 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer existingCustomer = customerRepo.findByUserName(customer.getUserName());
 		if (existingCustomer != null)
 			throw new CustomerException("Customer Already Registered with User Name");
-
+		Cart cart = new Cart();
+		customer.setCart(cart);
 		return customerRepo.save(customer);
 
 	}
 
 	@Override
 	public Customer UpdateCustomer(String key, Customer customer) throws CustomerException {
-		CurrentUserSession loggedInUser= sDao.findByUuid(key);
+		CurrentUserSession loggedInUser = sDao.findByUuid(key);
 		
-		if(loggedInUser == null) {
+		if (loggedInUser == null) {
 			throw new CustomerException("Please provide a valid key to update a customer");
 		}
-		
-		if(customer.getUserId() == loggedInUser.getUserId()) {
-			//If LoggedInUser id is same as the id of supplied Customer which we want to update
-			return customerRepo.save(customer);
-		}
-		else
+		System.out.println(loggedInUser);
+		if (customer.getUserId() == loggedInUser.getUserId()) {
+			// If LoggedInUser id is same as the id of supplied Customer which we want to
+			// update
+			Optional<Customer> opt = customerRepo.findById(customer.getUserId());
+			Customer c = opt.get();
+			c.setUserName(customer.getUserName());
+			if(customer.getPassword() != null)
+				c.setPassword(customer.getPassword());
+
+			return customerRepo.save(c);
+		} else
 			throw new CustomerException("Invalid Customer Details, please login first");
-	
 
 	}
 
@@ -82,11 +89,20 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer getCustomerById(Long userId) throws CustomerException {
-		Optional<Customer> opt = customerRepo.findById(userId);
+	public Customer getCustomerById(String key) throws CustomerException {
+		CurrentUserSession loggedInUser = sDao.findByUuid(key);
+
+		if (loggedInUser == null) {
+			throw new CustomerException("Please provide a valid key to update a customer");
+		}
+
+		Optional<Customer> opt = customerRepo.findById(loggedInUser.getUserId());
 		if (opt.isEmpty())
-			throw new CustomerException("No customers found with Id " + userId);
-		return opt.get();
+			throw new CustomerException("Invalid Customer !!");
+		Customer customer = opt.get();
+
+		return customer;
+
 	}
 
 }

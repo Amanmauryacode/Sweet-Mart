@@ -35,8 +35,8 @@ public class CustomerController {
 
 	}
 	
-	@PutMapping("/customer/{userId}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable String key ,@RequestBody Customer customer) throws CustomerException{
+	@PutMapping("/customers/{key}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable("key") String key ,@RequestBody Customer customer) throws CustomerException{
 		
 		customer= customerService.UpdateCustomer(key,customer);
 		return new ResponseEntity<>(customer,HttpStatus.ACCEPTED);
@@ -63,9 +63,9 @@ public class CustomerController {
 		return new ResponseEntity<>(customer,HttpStatus.OK);
 	}
 	
-	@GetMapping("/customers/id/{userId}")
-	public ResponseEntity<Customer> getCustomerById(@Valid @PathVariable  Long userId) throws CustomerException{
-		Customer customer = customerService.getCustomerById(userId);
+	@GetMapping("/customers/id/{key}")
+	public ResponseEntity<Customer> getCustomerByUuid(@Valid @PathVariable  String key) throws CustomerException{
+		Customer customer = customerService.getCustomerById(key);
 		return new ResponseEntity<>(customer, HttpStatus.ACCEPTED);
 	}
 	

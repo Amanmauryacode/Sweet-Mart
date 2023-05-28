@@ -109,7 +109,7 @@
     })
 
     function logout(key) {
-
+        
         var raw = "";
 
         var requestOptions = {
@@ -118,7 +118,7 @@
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8088/logout?key=" + key, requestOptions)
+        fetch(`http://localhost:8088/logout?key=${key}`, requestOptions)
             .then(response => response.text())
             .then(result => {
                 if (result === "Logged Out !") {
@@ -132,6 +132,7 @@
             })
             .catch(error => console.log('error', error));
 
+       
     }
 
 
